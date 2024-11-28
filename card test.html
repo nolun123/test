@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="card-container"></div>
+
+    <button onclick="addCard()">Thêm Card</button>
+
+    <script src="script.js"></script>
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #f4f4f4;
+}
+
+#card-container {
+    margin: 20px;
+    width: 80%;
+}
+
+.card {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+    margin-bottom: 10px;
+}
+
+.card p {
+    margin: 5px 0;
+}
+
+.card button {
+    padding: 10px 15px;
+    margin-top: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.card button:hover {
+    background-color: #0056b3;
+}
+
+.card .delete-btn {
+    background-color: red;
+}
+
+.card .delete-btn:hover {
+    background-color: #d32f2f;
+}
+
+</style>
+<script>
+    // Dữ liệu JSON mẫu ban đầu
+let cardsData = [
+    { id: 1, title: "Card 1", address: "123 Street, City", phone: "0123456789" },
+    { id: 2, title: "Card 2", address: "456 Avenue, City", phone: "0987654321" }
+];
+
+// Hàm hiển thị tất cả các card
+function renderCards() {
+    const container = document.getElementById('card-container');
+    container.innerHTML = ''; // Xóa nội dung cũ
+
+    cardsData.forEach(card => {
+        const cardElement = document.createElement('div');
+        cardElement.classList.add('card');
+        cardElement.setAttribute('data-id', card.id);
+
+        cardElement.innerHTML = `
+            <h3>${card.title}</h3>
+            <p>Địa chỉ: ${card.address}</p>
+            <p>Điện thoại: ${card.phone}</p>
+            <button class="call-btn" onclick="callPhone('${card.phone}')">Gọi</button>
+            <button class="delete-btn" onclick="deleteCard(${card.id})">Xóa</button>
+            <button class="edit-btn" onclick="editCard(${card.id})">Sửa</button>
+        `;
+        
+        container.appendChild(cardElement);
+    });
+}
+
+// Hàm gọi điện thoại
+function callPhone(phoneNumber) {
+    alert(`Đang gọi đến số: ${phoneNumber}`);
+}
+
+// Hàm xóa card
+function deleteCard(id) {
+    cardsData = cardsData.filter(card => card.id !== id);
+    renderCards();
+}
+
+// Hàm sửa card
+function editCard(id) {
+    const card = cardsData.find(card => card.id === id);
+    const newTitle = prompt("Nhập tiêu đề mới", card.title);
+    const newAddress = prompt("Nhập địa chỉ mới", card.address);
+    const newPhone = prompt("Nhập số điện thoại mới", card.phone);
+
+    if (newTitle && newAddress && newPhone) {
+        card.title = newTitle;
+        card.address = newAddress;
+        card.phone = newPhone;
+        renderCards();
+    }
+}
+
+// Hàm thêm card mới
+function addCard() {
+    const newCard = {
+        id: cardsData.length + 1,
+        title: `Card ${cardsData.length + 1}`,
+        address: `New Address ${cardsData.length + 1}`,
+        phone: `000000000${cardsData.length + 1}`
+    };
+    cardsData.push(newCard);
+    renderCards();
+}
+
+// Hiển thị các card khi tải trang
+renderCards();
+
+</script>
+</body>
+</html>
