@@ -21,8 +21,6 @@
           margin-top: 160px;
           margin-bottom: -100px
       }
-
-
     .card{
         position: relative;
         bottom: 150px;
@@ -371,6 +369,7 @@
               </div>
           </nav>       
 <div id="card-container"></div>
+
 <div class="container mt-5">
   <table class="table table-bordered">
       <thead>
@@ -381,6 +380,7 @@
       <tbody id="table-body"></tbody>
   </table>
 </div>
+
 <!-- Modal NV -->
 <div class="modal fade" id="settingModalNV" tabindex="-1" aria-labelledby="settingModalNVLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -410,36 +410,6 @@
             </div>                           
         </div>
     </div>
-</div>
-<!-- Modal NV -->
-<div class="modal fade" id="settingModalNV1" tabindex="-1" aria-labelledby="settingModalNV1Label" aria-hidden="true">
-  <div class="modal-dialog">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="settingModalLabel " style="font-size: 2rem;">SETTING:</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body row">
-              <div class="col-12">
-                <div class="mb-3 d-flex align-items-center">
-                  <label for="inputplan" class="form-label me-3" style="font-size: 1.5rem;">ID:</label>
-                  <input type="text" class="form-control" placeholder="Điền ID" style="font-size: 1.5rem;" id="Name" value=""/>                    
-                </div> 
-                <div class="mb-3 d-flex align-items-center">
-                  <label for="inputplan" class="form-label me-3" style="font-size: 1.5rem;">ADDRESS:</label>
-                  <input type="text" class="form-control" placeholder="Điền địa chỉ" style="font-size: 1.5rem;" id="Name" value=""/>       
-                </div> 
-                <div class="mb-3 d-flex align-items-center">
-                  <label for="inputplan" class="form-label me-3" style="font-size: 1.5rem;">VOLUME:</label>
-                  <input type="range" class="form-range" id="inputplan">
-                </div> 
-                <div class="col-12 text-center">        
-                  <button type="button" class="btn btn-warning ms-3" style="font-size: 1.5rem;" onclick='saveAndClearInput0()' data-bs-dismiss="modal">Save</button>                    
-                  <button type="button" class="btn btn-warning ms-3" style="font-size: 1.5rem;" data-bs-dismiss="modal">Cancel</button>                             
-              </div> 
-          </div>                           
-      </div>
-  </div>
 </div>
 
 <form>
@@ -531,7 +501,8 @@
       $('#settingModalNV1').modal('show');
     }
     $('#settingBtnNV').click(openSettingModalNV);
-    $('#settingBtnSP').click(openSettingModalNV1);
+    $('#settingBtnNV1').click(openSettingModalNV);
+    $('#settingBtnNV2').click(openSettingModalNV);
   });
   // dọn dữ liệu cũ trên thanh input trong modal
   function saveAndClearInput0() {
@@ -673,7 +644,16 @@
                 <td>${item.regist}</td>
                 <td>${item.value}</td>
                 <td>${item.type}</td>
-                <td><button class="btn btn-warning" data-bs-toggle="modal" data-target="#settingModalNV1" id="settingBtnNV">Edit</button></td></td>
+                <td><button class="btn btn-warning" data-bs-toggle="modal" data-target="#settingModalNV1" id="settingBtnNV1">Edit</button></td></td>
+            </tr>`
+        ).join('');  
+        document.getElementById('table-body').innerHTML = data.map(item => 
+            `<tr>
+                <td>${item.id}</td>
+                <td>${item.regist}</td>
+                <td>${item.value}</td>
+                <td>${item.type}</td>
+                <td><button class="btn btn-warning" data-bs-toggle="modal" data-target="#settingModalNV1" id="settingBtnNV1">Edit</button></td></td>
             </tr>`
         ).join('');  
 </script> 
